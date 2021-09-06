@@ -14,7 +14,7 @@ export interface Analyzer {
 
 class Crowller {
 
-  private filePath = path.resolve(__dirname, '../data/Msg.json')
+  private filePath = path.resolve(__dirname, '../../data/Msg.json')
 
   // 获取页面html
   async getRawHtml() {

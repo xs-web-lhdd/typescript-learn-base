@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node ./src/crowller.ts",
+    "dev": "ts-node ./src/组合模式/crowller.ts",
+    "serve": "ts-node ./src/单例模式/DellCrowller.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
