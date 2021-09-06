@@ -1,6 +1,5 @@
 // 可在node发送请求
 import superagent from 'superagent' // 记得安装类型定义文件依赖
-import cheerio from 'cheerio'
 // node核心模块
 import fs from 'fs'
 import path from 'path'
@@ -8,10 +7,12 @@ import path from 'path'
 import { DellAnalyzer } from './analyzer'
 
 
-class Crowller {
-  private url = 'http://www.dell-lee.com/'
+export interface Analyzer {
+  anylize: (html: string, filePath: string) => string
+}
 
-  private rawHtml = ''
+
+class Crowller {
 
   private filePath = path.resolve(__dirname, '../data/Msg.json')
 
@@ -35,10 +36,12 @@ class Crowller {
     fs.writeFileSync(this.filePath, content)
   }
 
-  constructor (private analyzer: any) {
+  constructor (private analyzer: Analyzer, private url: string) {
     this.initSpiderProcess()
   }
 }
 
+const url = 'http://www.dell-lee.com/'
+
 const analyzer = new DellAnalyzer()
-const crowller = new Crowller(analyzer)
+const crowller = new Crowller(analyzer, url)

@@ -15,7 +15,9 @@ interface Content {
 import cheerio from 'cheerio'
 import fs from 'fs'
 
-export class DellAnalyzer {
+import { Analyzer } from './crowller'
+
+export class DellAnalyzer implements Analyzer {
 
   // 获取所需部分并存入数组中
   private getJsonInfo(html: string) {
