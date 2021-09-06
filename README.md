@@ -547,6 +547,7 @@ class Teacher extends Person {
   getName() {
     return super.getName() + "lee";
   }
+  // super用法：当子类的方法覆盖父类的方式然而子类又想使用父类的方法时就可以使用super这个关键字
 }
 
 const person = new Person();
@@ -664,6 +665,91 @@ const teacher = new Teacher(28)
 ```
 
 ##### 静态属性、Setter、Getter：
+
+```js
+class Person {
+  constructor(private name: string) {}
+}
+const person = new Person('dell')
+person.name
+```
+
+###### get：
+
+根据上面所学知识我们易知道这种写法是会报错的（name 是私有属性不能在类外被调用），但如果想调用 name 怎么办？就可以用 get 这个静态属性：
+
+```js
+class Person {
+  constructor(private name: string) {}
+  get getName() {
+    return this.name
+  }
+}
+
+const person = new Person('dell')
+console.log(person.getName);
+// 这样间接调用getName这个属性就可以被外部调用（getName是一个属性不是方法不需要加括号）
+```
+
+###### set：
+
+```js
+class Person {
+  constructor(private _name: string) {}
+  get getName() {
+    return this._name + ' lee'
+  }
+  set setName(name: string) {
+    const realName = name.split(' ')[0]
+    this._name = realName
+  }
+}
+
+const person = new Person('dell')
+person.setName = 'dell lee'
+console.log(person.getName);
+// 用 set 可以保护内部私有变量，这样看似在内部设置了name为dell lee实则设置的是dell
+```
+
+###### 单例设计模式：
+
+```js
+// 单例模式
+class Demo {
+  private static instance: Demo
+  private constructor (public name: string) {}
+
+  static getInstance() {
+    if (!this.instance) {
+      this.instance = new Demo('dell lee')
+    }
+    return this.instance
+  }
+}
+
+const demo1 = Demo.getInstance()
+const demo2 = Demo.getInstance()
+console.log(demo1.name)
+console.log(demo2.name)
+```
+
+###### readonly:
+
+只能读不能改
+
+```js
+class Person {
+  public readonly name: string
+  constructor(name: string) {
+    this.name = name
+  }
+}
+
+const person = new Person('Dell')
+console.log(person.name)
+```
+
+###### 抽象类：
 
 #### 进阶 TS：
 
