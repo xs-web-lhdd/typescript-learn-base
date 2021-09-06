@@ -52,9 +52,11 @@ class Crowller {
 
   // 流程执行过程：
   async initSpiderProcess() {
+    const filePath = path.resolve(__dirname, '../data/Msg.json')
     const html = await this.getRawHtml()
     const Msg = this.getJsonInfo(html)
-    this.saveJsonContent(Msg)
+    const fileContent = this.saveJsonContent(Msg)
+    fs.writeFileSync(filePath, JSON.stringify(fileContent))
   }
 
   // 存放在JSON文件中
@@ -67,7 +69,7 @@ class Crowller {
       fileContent = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
     }
     fileContent[Msg.time] = Msg.data
-    fs.writeFileSync(filePath, JSON.stringify(fileContent))
+    return fileContent
   }
 
   constructor () {
