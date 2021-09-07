@@ -12,7 +12,7 @@ export interface Analyzer {
 }
 
 
-class Crowller {
+export default class Crowller {
 
   private filePath = path.resolve(__dirname, '../../data/DellMsg.json')
 
